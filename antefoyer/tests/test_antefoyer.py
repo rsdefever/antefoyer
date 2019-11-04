@@ -5,8 +5,7 @@ Unit and regression test for the antefoyer package.
 import pytest
 import parmed as pmd
 
-from antefoyer.antefoyer import ante_atomtyping
-from antefoyer.antefoyer import ante_charges
+from antefoyer.antefoyer import *
 
 from foyer.tests.utils import get_fn
 from foyer.utils.io import has_mbuild
