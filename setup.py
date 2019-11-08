@@ -30,6 +30,10 @@ setup(
     version=versioneer.get_version(),
     cmdclass=versioneer.get_cmdclass(),
     license='MIT',
+    entry_points={
+        'foyer.forcefields': [
+            "load_GAFF = antefoyer.gafffoyer:load_GAFF"]
+    },
 
     # Which Python importable modules should be included when your package is installed
     # Handled automatically by setuptools. Use 'exclude' to prevent some specific
