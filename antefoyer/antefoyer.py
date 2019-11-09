@@ -9,8 +9,8 @@ import networkx as nx
 
 from distutils.spawn import find_executable
 from subprocess import PIPE, Popen
-from foyer.utils.tempdir import temporary_directory
-from foyer.utils.tempdir import temporary_cd
+from antefoyer.utils.tempdir import temporary_directory
+from antefoyer.utils.tempdir import temporary_cd
 
 from foyer.exceptions import FoyerError
 from foyer.utils.io import import_, has_mbuild
