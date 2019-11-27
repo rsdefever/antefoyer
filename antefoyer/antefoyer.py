@@ -146,6 +146,24 @@ def ante_charges(molecule, charge_style, net_charge=0.0,
         molecule.atoms[atom_idx].charge = charges.atoms[atom_idx].charge
     return molecule
 
+def _write_pdb(molecule,filename):
+    """Write a pdb file with CONECT records."""
+
+    # First generate CONECT records
+    for bond in
+    with open(filename, 'w') as pdb::
+        pdb.write('REMARK 1   Created by antefoyer\n')
+        pdb.write('CRYST1{:9.3f}{:9.3f}{9.3f}{:7.2f}{:7.2f}{:7.2f}'
+                  '{:10s}{:3d}\n'.format(molecule.box[0],molecule.box[1],
+                      molecule.box[2]))
+        pdb.write('MODEL  0\n')
+        for atom in molecule.atoms:
+            pdb.write('ATOM  {:5d}{:4s} RES A {:4d}    '
+                    '{:8.3f}{:8.3f}{:8.3f}{:6.2f}{:6.2f}{:2s}'
+                    '  \n'.format())
+
+        for 
+
 def _check_structure(molecule):
     """ Confirm that input is parmed.Structure. Convert
     from mbuild.Compound to parmed.Structure if possible.
