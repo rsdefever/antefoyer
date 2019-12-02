@@ -9,10 +9,10 @@ from antefoyer.antefoyer import *
 
 from foyer.tests.utils import get_fn
 from foyer.utils.io import has_mbuild
-from foyer.utils.tempdir import temporary_directory
-from foyer.utils.tempdir import temporary_cd
 from foyer.exceptions import FoyerError
 
+from antefoyer.utils.tempdir import temporary_directory
+from antefoyer.utils.tempdir import temporary_cd
 
 from distutils.spawn import find_executable
 from os.path import isfile
