@@ -149,7 +149,13 @@ def ante_charges(molecule, charge_style, net_charge=0.0,
 def _write_pdb(molecule,filename):
     """Write a pdb file with CONECT records."""
 
-    # First generate CONECT records
+    # Check that we have a box. If not, define one.
+    if molecule.box is None:
+        molecule.box = [10.,10.,10.,90.,90.,90.]
+
+    assert len(molecule.box) == 6, "Invalid box object."
+
+    # Generate CONECT records
     conect = { atom.idx : [] for atom in molecule.atoms }
     for atom in molecule.atoms:
         atidx = atom.idx
