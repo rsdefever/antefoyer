@@ -53,9 +53,9 @@ def ante_atomtyping(molecule, atype_style):
     with temporary_directory() as tmpdir:
         with temporary_cd(tmpdir):
             # Save the existing molecule to file
-            molecule.save('ante_in.mol2')
+            _write_pdb(molecule,'ante_in.pdb')
             # Call antechamber
-            command = ( 'antechamber -i ante_in.mol2 -fi mol2 '
+            command = ( 'antechamber -i ante_in.pdb -fi pdb '
                          '-o ante_out.mol2 -fo mol2 ' +
                          '-at ' + atype_style + ' ' +
                          '-s 2' )
@@ -117,9 +117,9 @@ def ante_charges(molecule, charge_style, net_charge=0.0,
     with temporary_directory() as tmpdir:
         with temporary_cd(tmpdir):
             # Save the existing molecule to file
-            molecule.save('ante_in.mol2')
+            _write_pdb(molecule,'ante_in.pdb')
             # Call antechamber
-            command = ( 'antechamber -i ante_in.mol2 -fi mol2 '
+            command = ( 'antechamber -i ante_in.pdb -fi pdb '
                          '-o ante_out.mol2 -fo mol2 ' +
                          '-c ' + charge_style + ' ' +
                          '-nc ' + str(net_charge) + ' ' +
@@ -150,19 +150,32 @@ def _write_pdb(molecule,filename):
     """Write a pdb file with CONECT records."""
 
     # First generate CONECT records
-    for bond in
-    with open(filename, 'w') as pdb::
-        pdb.write('REMARK 1   Created by antefoyer\n')
-        pdb.write('CRYST1{:9.3f}{:9.3f}{9.3f}{:7.2f}{:7.2f}{:7.2f}'
-                  '{:10s}{:3d}\n'.format(molecule.box[0],molecule.box[1],
-                      molecule.box[2]))
-        pdb.write('MODEL  0\n')
-        for atom in molecule.atoms:
-            pdb.write('ATOM  {:5d}{:4s} RES A {:4d}    '
-                    '{:8.3f}{:8.3f}{:8.3f}{:6.2f}{:6.2f}{:2s}'
-                    '  \n'.format())
+    conect = { atom.idx : [] for atom in molecule.atoms }
+    for atom in molecule.atoms:
+        atidx = atom.idx
+        for bond in molecule.bonds:
+            if bond.atom1.idx == atidx:
+                conect[atidx].append(bond.atom2.idx)
+            elif bond.atom2.idx == atidx:
+                conect[atidx].append(bond.atom1.idx)
 
-        for 
+    with open(filename, 'w') as pdb:
+        pdb.write('REMARK 1   Created by antefoyer\n')
+        pdb.write('CRYST1{:9.3f}{:9.3f}{:9.3f}{:7.2f}{:7.2f}{:7.2f}'
+                  ' {:9s}{:3d}\n'.format(molecule.box[0],molecule.box[1],
+                      molecule.box[2],molecule.box[3],molecule.box[4],
+                      molecule.box[5],molecule.space_group,1))
+        for atom in molecule.atoms:
+            pdb.write('ATOM  {:5d} {:4s} RES A{:4d}    '
+                    '{:8.3f}{:8.3f}{:8.3f}{:6.2f}{:6.2f}'
+                    '          {:>2s}  \n'.format(atom.idx+1,atom.name,
+                        0,atom.xx,atom.xy,atom.xz,1.0,0.0,
+                        atom.element_name))
+        for atidx, atomlist in conect.items():
+            pdb.write('CONECT{:5d}'.format(atidx+1))
+            for at2idx in atomlist:
+                pdb.write('{:5d}'.format(at2idx+1))
+            pdb.write('\n')
 
 def _check_structure(molecule):
     """ Confirm that input is parmed.Structure. Convert
