@@ -5,7 +5,6 @@ import sys
 import warnings
 
 import parmed as pmd
-import networkx as nx
 
 from distutils.spawn import find_executable
 from subprocess import PIPE, Popen
@@ -71,6 +70,10 @@ def ante_atomtyping(molecule, atype_style):
 
             # Now read in the mol2 file with atomtyping
             typed_molecule = pmd.load_file('ante_out.mol2',structure=True)
+
+    # Foyer requires that the atom type info is stored under atom.id
+    for atom in typed_molecule:
+        atom.id = atom.type
 
     # And return it
     return typed_molecule
