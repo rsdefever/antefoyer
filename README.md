@@ -29,12 +29,19 @@ The `pip install` command should be issued from within the same `conda` environm
 
 ## Dependencies
 
-- foyer >= 0.7.2
+- foyer > 0.7.3
 - ambertools (for the `antefoyer.ante_atomtyping` and `antefoyer.ante_charges` functions)
 
-Both dependencies can be installed via conda:
+Foyer must be installed from source:
 
-	conda install -c omnia -c mosdef -c conda-forge foyer ambertools
+	git clone https://github.com/mosdef-hub/foyer.git
+	cd foyer/
+	conda install -c omnia -c conda-forge -c mosdef --file requirements.txt
+	pip install .
+
+Ambertools can be installed via conda:
+
+	conda install -c conda-forge ambertools
 
 ## Usage
 There are two primary workflows for atomtyping with `antefoyer`. The first uses the traditional `foyer` approach with SMARTS strings defined in `antefoyer/xml/gaff.xml`. 
