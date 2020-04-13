@@ -51,7 +51,7 @@ There are two primary workflows for atomtyping with `antefoyer`. The first uses 
     import mbuild as mb
     
     # Build/import a molecule
-    molecule = mb.load('CCC',smarts=True)
+    molecule = mb.load('CCC',smiles=True)
     
     # Load GAFF
     GAFF = foyer.forcefields.load_GAFF()
