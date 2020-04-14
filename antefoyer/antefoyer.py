@@ -5,6 +5,7 @@ import sys
 import warnings
 
 import parmed as pmd
+import networkx as nx
 
 from distutils.spawn import find_executable
 from subprocess import PIPE, Popen
