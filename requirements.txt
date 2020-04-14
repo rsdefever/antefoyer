@@ -1,0 +1,3 @@
+foyer >=0.7.4
+networkx
+ambertools
