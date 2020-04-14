@@ -19,29 +19,24 @@ There are two primary components to this repository:
 - Antechamber wrapper to integrate antechamber atomtyping and AM1-BCC charge assignment directly into MoSDeF workflows.
 
 ## Installation
-The following instructions assume you already have foyer installed. If you do not please install foyer __before__ proceeding with these instructions.
+The following instructions will create a new python 3.7 conda environment (antefoyer) and install the required packages and dependencies:
 
     git clone https://github.com/rsdefever/antefoyer
+    conda create --name antefoyer -c conda-forge -c mosdef python=3.7 --file antefoyer/requirements.txt
+    conda activate antefoyer
     cd antefoyer/.
     pip install . 
 
-The `pip install` command should be issued from within the same `conda` environment as `foyer` is installed. 
-
 ## Dependencies
 
-- foyer > 0.7.3
+- foyer >= 0.7.4
+- networkx
 - ambertools (for the `antefoyer.ante_atomtyping` and `antefoyer.ante_charges` functions)
 
-Foyer must be installed from source:
+## Optional dependencies
+To complete some of the examples below you will need mbuild and openbabel installed. These can be added via conda:
 
-	git clone https://github.com/mosdef-hub/foyer.git
-	cd foyer/
-	conda install -c omnia -c conda-forge -c mosdef --file requirements.txt
-	pip install .
-
-Ambertools can be installed via conda:
-
-	conda install -c conda-forge ambertools
+	conda install -c conda-forge mbuild openbabel
 
 ## Usage
 There are two primary workflows for atomtyping with `antefoyer`. The first uses the traditional `foyer` approach with SMARTS strings defined in `antefoyer/xml/gaff.xml`. 
