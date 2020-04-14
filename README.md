@@ -22,7 +22,7 @@ There are two primary components to this repository:
 The following instructions will create a new python 3.7 conda environment (antefoyer) and install the required packages and dependencies:
 
     git clone https://github.com/rsdefever/antefoyer
-    conda create --name antefoyer -c conda-forge -c mosdef python=3.7 --file antefoyer/requirements.txt
+    conda create --name antefoyer -c conda-forge -c mosdef -c omnia python=3.7 --file antefoyer/requirements.txt
     conda activate antefoyer
     cd antefoyer/.
     pip install . 
