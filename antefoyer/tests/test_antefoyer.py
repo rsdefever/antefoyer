@@ -95,7 +95,7 @@ def test_ante_charge_delta():
     ethane = pmd.load_file(get_fn("ethane.mol2"), structure=True)
     charges = ante_charges(ethane, "bcc", net_charge=0)
 
-    assert np.allclose(sum([i.charge for i in charges]), 0, atol=5e-3)
+    assert np.allclose(sum([i.charge for i in charges]), 0)
 
 
 @pytest.mark.skipif(ANTECHAMBER is None, reason="antechamber is not installed")
