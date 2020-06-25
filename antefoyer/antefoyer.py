@@ -160,7 +160,7 @@ def ante_charges(
             charges = pmd.load_file("ante_out.mol2", structure=True)
 
             charge_list = [atom.charge for atom in charges]
-            if (net_charge - sum(charge_list)) > charge_tol:
+            if abs(net_charge - sum(charge_list)) > charge_tol:
                 raise ValueError(
                     "The sum of charges defined by antechamber"
                     " is {}, which differs from the desired net charge"
@@ -168,7 +168,7 @@ def ante_charges(
                         sum(charge_list), net_charge, charge_tol
                     )
                 )
-            elif (net_charge - sum(charge_list)) < charge_tol:
+            elif abs(net_charge - sum(charge_list)) < charge_tol:
                 charge_delta = (net_charge - sum(charge_list)) / len(charge_list)
                 for atom in charges:
                     atom.charge += charge_delta
